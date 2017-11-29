@@ -1,0 +1,103 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 05.okt.2017, 17:07:36
+    Author     : Daniel
+*/
+.background {
+    height: 100%;
+    background: rgb(241,248,249); /* Old browsers */
+background: -moz-linear-gradient(top, rgba(241,248,249,1) 0%, rgba(195,241,243,1) 50%, rgba(170,238,240,1) 51%, rgba(224,251,252,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, rgba(241,248,249,1) 0%,rgba(195,241,243,1) 50%,rgba(170,238,240,1) 51%,rgba(224,251,252,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, rgba(241,248,249,1) 0%,rgba(195,241,243,1) 50%,rgba(170,238,240,1) 51%,rgba(224,251,252,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f1f8f9', endColorstr='#e0fbfc',GradientType=0 );
+}
+
+.center2 {
+    display: block;
+    background-color: white;
+    height: 20%;
+    margin-top: 20px;
+    border: 5px;
+    border-color: #ccccff
+}
+
+.container2 {
+    padding: 25px;
+    display: block;
+    width: 250px;
+    margin-top: 200px;
+}
+
+.form-login {
+    
+    background-color: #EDEDED;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 15px;
+    border-color:#d2d2d2;
+    border-width: 5px;
+    box-shadow:0 1px 0 #cfcfcf;
+    display: block;
+}
+
+.textfile-container {
+    background-color: #99ccff;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 15px;
+    border-color: #ff9900;
+    border-width: 5px;
+    box-shadow:0 1px 0 #cfcfcf;
+    display: block;
+}
+
+.form-register {
+    
+    background-color: #EDEDED;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 15px;
+    border-color: #66ff00;
+    border-width: 5px;
+    box-shadow:0 10px 0 #ff0033;
+    display: block;
+  
+}
+
+h4 { 
+ border:0 solid #fff; 
+ border-bottom-width:1px;
+ padding-bottom:10px;
+ text-align: center;
+}
+h5.username { 
+ border:0 solid #fff; 
+ border-bottom-width:1px;
+ padding-bottom:10px;
+ text-align: center;
+}
+
+h5.password { 
+ border:0 solid #fff; 
+ border-bottom-width:1px;
+ padding-bottom:10px;
+ text-align: center;
+}
+
+.form-control {
+    border-radius: 10px;
+}
+
+.wrapper {
+    text-align: center;
+}
