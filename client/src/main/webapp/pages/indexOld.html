@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="login.css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="topnav.css"/>
+
+    </head>
+    <body class="background">
+        <div data-bind="visible: active() !== 'login' && active() !=='register'" class="topnav" id="myTopnav">
+            <a href="#">Frontpage</a>
+            <a href="#">Catalog</a>
+        </div>
+
+
+        <div data-bind="visible: active() === 'login'" class="center">
+            <div class="form-login">
+                <h5 class="username">Username</h5>
+                <input data-bind="value: username, valueUpdate: 'afterkeydown'" class="form-control"/>
+                <h5 class="password">Password</h5>
+                <input data-bind="value: password, valueUpdate: 'afterkeydown'" class="form-control"/>
+                <button data-bind="click: $root.login" class="btn btn-success">Login</button>
+                <button data-bind="click: $root.registerView" class="btn btn-info">Register</button>
+            </div>
+        </div>
+
+
+        <div data-bind="visible: active() === 'register'" class="center">
+            <div class="form-register">
+                <h5 class="username">Username</h5>
+                <input data-bind="value: username, valueUpdate: 'afterkeydown'" class="form-control"/>
+                <h5 class="password">Password</h5>
+                <input data-bind="value: password, valueUpdate: 'afterkeydown'" class="form-control"/>
+                <button data-bind="click: $root.register" class="btn btn-info">Register</button>
+                <button data-bind="click: $root.backToLogin" class="btn btn-basic">Back</button>
+            </div>
+        </div>
+
+
+        <div data-bind="visible: active() === 'mainpage'" class="center">
+            <div class="textfile-container">
+             <!--   <ul data-bind="foreach: titles">
+                    <li>
+                        <a data-bind="text: $data, click: $root.select"></a>
+                    </li>
+                </ul> -->
+                <select data-bind="options: titles, value: selectedTitle, optionsCaption: 'select a textfile'">
+                </select> 
+                <select data-bind="options: languages, value: selectedLanguage, optionsCaption: 'select a language!'">
+                </select>
+             <!--   <select data-bind="options: languages, value: $data, click: $root.selectLanguage">
+                    <option data-bind="">
+                        
+                    </option> 
+                </select>-->
+                <button data-bind="click: $root.printSelected">print selected</button>
+                <button data-bind="click: $root.getSelected">Get text</button>
+                <button data-bind="click: $root.translateSelected">Translate text</button>
+            </div>
+            <div data-bind="visible: selectedTitle() !==''" class="center2">
+                <a data-bind="text: selectedTitle"></a>
+                <br>
+                <a data-bind="text: textcontent"></a>
+            </div>
+        </div>
+    </body>
+</html>

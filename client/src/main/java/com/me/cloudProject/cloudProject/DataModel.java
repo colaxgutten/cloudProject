@@ -22,12 +22,15 @@ import net.java.html.json.ModelOperation;
 import com.me.cloudProject.cloudProject.js.PlatformServices;
 import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 @Model(className = "Data", targetId="", instance=true, properties = {
     @Property(name = "active", type = String.class),
     @Property(name = "titles", type = String.class, array = true),
     @Property(name = "selectedTitle", type = String.class),
     @Property(name = "textcontent", type = String.class),
+    @Property(name = "translatedTitle", type = String.class),
+    @Property(name = "translatedContent", type = String.class),
     @Property(name = "username", type = String.class),
     @Property(name = "password", type = String.class),
     @Property(name = "selected", type = String.class),
@@ -88,7 +91,9 @@ final class DataModel {
         }
         ArrayList<String> languages = new ArrayList();
         for (Language l : translate.listSupportedLanguages()){
-            languages.add(l.getCode());
+            String s = "";
+            s+=l.getCode()+" ("+l.getName()+")";
+            languages.add(s);
         }
         ui.getLanguages().clear();
         ui.getLanguages().addAll(languages);
@@ -124,6 +129,8 @@ final class DataModel {
                   .set(USERENTITY_USERNAME, ui.getUsername())
                   .set(USERENTITY_PASSWORD, ui.getPassword()).build();
           datastore.add(incEntity);
+          loadTitles(datastore);
+          loadLanguages();
           ui.setActive(PAGE_MAINPAGE);
         }
     }
@@ -146,14 +153,21 @@ final class DataModel {
          if (translate == null){
              authenticateTranslate();
          }
-        Translation translationTitle = translate.translate(ui.getSelectedTitle(), TranslateOption.targetLanguage(ui.getSelectedLanguage()));
-        Translation translationContent = translate.translate(ui.getTextcontent(),TranslateOption.targetLanguage(ui.getSelectedLanguage()));
-        ui.setSelectedTitle(translationTitle.getTranslatedText());
-        ui.setTextcontent(translationContent.getTranslatedText());
-         System.out.println(ui.getTextcontent());
-
+        String code = getLanguageCode(ui.getSelectedLanguage());
+        Translation translationTitle = translate.translate(ui.getSelectedTitle(), TranslateOption.targetLanguage(code));
+        Translation translationContent = translate.translate(ui.getTextcontent(),TranslateOption.targetLanguage(code));
+        ui.setTranslatedTitle(translationTitle.getTranslatedText());
+        ui.setTranslatedContent(translationContent.getTranslatedText());
      }
                 
+    }
+    
+    private String getLanguageCode(String s){
+        if (s!=null && s != "" && s.contains("(")){
+            String code = s.split(Pattern.quote("("))[0].trim();
+            return code;
+        }
+        return "en";
     }
     
     @Function
@@ -170,7 +184,7 @@ final class DataModel {
     @Function
     public void getSelected() throws Exception{
         System.out.println("Get selected runs and selceted value is: " + ui.getSelectedTitle());
-        if (ui.getSelectedTitle()!=""){
+        if (ui.getSelectedTitle()!="" && ui.getSelectedTitle() != null){
         Query<Entity> query = Query.newEntityQueryBuilder()
                 .setKind(TEXTENTITY_KIND)
                 .setFilter(PropertyFilter.eq(TEXTENTITY_TITLE, ui.getSelectedTitle()))
@@ -180,7 +194,6 @@ final class DataModel {
             Entity e = result.next();
             String entityTitle = (String)e.getValue(TEXTENTITY_TITLE).get();
             String entityContent = (String)e.getValue(TEXTENTITY_CONTENT).get();
-            System.out.println("Content is: "+entityContent);
             ui.setSelectedTitle(entityTitle);
             ui.setTextcontent(entityContent);
         }
@@ -203,7 +216,7 @@ final class DataModel {
      * Called when the page is ready.
      */
     static void onPageLoad(PlatformServices services) throws Exception {
-        ui = new Data("","","","","","","");
+        ui = new Data("","","","","","","","","");
         ui.setActive("login");
         ui.initServices(services);
         ui.applyBindings();
